@@ -24,7 +24,7 @@ public class CategoriaResource {
 	@GetMapping(value="/{id}")
 	public ResponseEntity<Categoria> findById(@PathVariable Integer id) {
 		
-		Categoria obj = service.findById(id);
+		Categoria obj = service.findById(id);  
 		
 		Categoria cat1 = new Categoria(1, "Informática");
 		Categoria cat2 = new Categoria(2, "Escritório");
