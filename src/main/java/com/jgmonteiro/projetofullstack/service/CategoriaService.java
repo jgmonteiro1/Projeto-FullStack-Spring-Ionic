@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jgmonteiro.projetofullstack.domain.Categoria;
 import com.jgmonteiro.projetofullstack.repository.CategoriaRepository;
+import com.jgmonteiro.projetofullstack.service.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -16,7 +17,8 @@ public class CategoriaService {
 	
 	public Categoria findById(Integer id) {
 		Optional<Categoria> obj = repository.findById(id);
-		return obj.orElse(null);
-	}
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+		"Essa categoria não existe meu brother, tem certeza que é o Id: " + id + " que você procura?"));
+		}
 	
 }
