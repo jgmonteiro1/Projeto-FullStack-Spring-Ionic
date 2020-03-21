@@ -9,10 +9,15 @@ import org.springframework.context.annotation.Profile;
 
 import com.jgmonteiro.projetofullstack.domain.Categoria;
 import com.jgmonteiro.projetofullstack.domain.Cidade;
+import com.jgmonteiro.projetofullstack.domain.Cliente;
+import com.jgmonteiro.projetofullstack.domain.Endereco;
 import com.jgmonteiro.projetofullstack.domain.Estado;
 import com.jgmonteiro.projetofullstack.domain.Produto;
+import com.jgmonteiro.projetofullstack.domain.enums.TipoCliente;
 import com.jgmonteiro.projetofullstack.repository.CategoriaRepository;
 import com.jgmonteiro.projetofullstack.repository.CidadeRepository;
+import com.jgmonteiro.projetofullstack.repository.ClienteRepository;
+import com.jgmonteiro.projetofullstack.repository.EnderecoRepository;
 import com.jgmonteiro.projetofullstack.repository.EstadoRepository;
 import com.jgmonteiro.projetofullstack.repository.ProdutoRepository;
 
@@ -31,6 +36,12 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -60,10 +71,20 @@ public class TestConfig implements CommandLineRunner {
 		p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 		
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("40028922","30221515"));
+		
+		Endereco e1 = new Endereco(null, "Rua Flores", "14", "Casa dos fundos", "Nordeste", "38220834", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 	}
 
 }
