@@ -10,25 +10,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jgmonteiro.projetofullstack.domain.Categoria;
-import com.jgmonteiro.projetofullstack.service.CategoriaService;
+import com.jgmonteiro.projetofullstack.domain.Cliente;
+import com.jgmonteiro.projetofullstack.service.ClienteService;
 
 @RestController
-@RequestMapping(value="/categorias")
-public class CategoriaResource {
+@RequestMapping(value="/clientes")
+public class ClienteResource {
 	
 	@Autowired
-	private CategoriaService service;
+	private ClienteService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
-		Categoria obj = service.findById(id);
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
+		Cliente obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Categoria>> Teste(){
-		List<Categoria> list = service.findAll();
+	public ResponseEntity<List<Cliente>> Teste(){
+		List<Cliente> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
