@@ -4,13 +4,17 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.jgmonteiro.projetofullstack.domain.enums.EstadoPagamento;
 
 @Entity
-public class Pagamento implements Serializable {
+@Inheritance(strategy=InheritanceType.JOINED)
+public abstract class Pagamento implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -20,6 +24,7 @@ public class Pagamento implements Serializable {
 	
 	@OneToOne
 	@JoinColumn(name="pedido_id")
+	@MapsId
 	private Pedido pedido;
 	
 	public Pagamento() {
@@ -42,11 +47,11 @@ public class Pagamento implements Serializable {
 	}
 
 	public EstadoPagamento getEstado() {
-		return estado.getCodigo();
+		return EstadoPagamento.converteParaEnumPagamento(estado);
 	}
 
 	public void setEstado(EstadoPagamento estado) {
-		this.estado = estado;
+		this.estado = estado.getCodigo();
 	}
 	
 	
