@@ -7,22 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jgmonteiro.projetofullstack.domain.Categoria;
-import com.jgmonteiro.projetofullstack.repository.CategoriaRepository;
+import com.jgmonteiro.projetofullstack.domain.Pedido;
+import com.jgmonteiro.projetofullstack.repository.PedidoRepository;
 import com.jgmonteiro.projetofullstack.service.exceptions.ObjectNotFoundException;
 
 @Service
-public class CategoriaService {
-
-	@Autowired
-	private CategoriaRepository repository;
+public class PedidoService {
 	
-	public List<Categoria> findAll(){
-		List<Categoria> list = repository.findAll();
-		return list;
+	@Autowired
+	private PedidoRepository repository;
+	
+	public List<Pedido> findAll(){
+		return repository.findAll();
 	}
-
-	public Categoria findById(Integer id) {
-		Optional<Categoria> obj = repository.findById(id);
+	
+	public Pedido findById(Integer id) {
+		Optional<Pedido> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
