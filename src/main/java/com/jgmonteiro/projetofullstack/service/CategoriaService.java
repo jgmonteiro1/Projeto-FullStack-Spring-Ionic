@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.jgmonteiro.projetofullstack.domain.Categoria;
@@ -35,5 +36,14 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		findById(obj.getId());
 		return repository.save(obj);
+	}
+	
+	public void deleteById(Integer id) {
+		findById(id);
+		try {
+		repository.deleteById(id);
+		} catch(DataIntegrityViolationException e) {
+			throw new DataIntegrityViolationException("Não é possível fazer a deleção de uma categoria com produtos associados =[");
+		}
 	}
 }
