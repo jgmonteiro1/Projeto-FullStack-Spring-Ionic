@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.jgmonteiro.projetofullstack.domain.Categoria;
+import com.jgmonteiro.projetofullstack.dto.CategoriaDTO;
 import com.jgmonteiro.projetofullstack.repository.CategoriaRepository;
 import com.jgmonteiro.projetofullstack.service.exceptions.ObjectNotFoundException;
 
@@ -53,5 +54,10 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repository.findAll(pageRequest);
+	}
+	
+	//Método auxiliar que instancia uma categoria a partir de uma CategoriaDTO
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 }
