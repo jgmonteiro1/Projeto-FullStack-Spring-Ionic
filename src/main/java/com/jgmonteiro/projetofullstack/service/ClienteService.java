@@ -58,9 +58,8 @@ public class ClienteService {
 	}
 	
 	//Método auxiliar da classe para atualizar um objeto existente no banco de dados
-	private Cliente updateData(Cliente newObj, Cliente obj) {
+	private void updateData(Cliente newObj, Cliente obj) {
 		newObj.setNome(obj.getNome());
 		newObj.setEmail(obj.getEmail());
-		return newObj;
 	}
 }
