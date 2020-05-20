@@ -2,26 +2,47 @@ package com.jgmonteiro.projetofullstack.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.jgmonteiro.projetofullstack.service.validation.ClienteInsert;
+
 //DTO utilizado para inserir um novo cliente
+@ClienteInsert
 public class ClienteNewDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	//Dados referentes ao novo cliente
+	@NotEmpty(message = "Preencimento de campo obrigatório")
+	@Length(min = 5, max = 120, message = "O tamanho deve ser entre 5 e 120")
 	private String nome;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Email(message = "Deve ser inserido um e-mail ex: joao@dominio.com")
 	private String email;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String cpfOuCnpj;
+	
 	private Integer tipo;
 	
 	//Dados referentes ao endereço do cliente
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String logradouro;
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String numero;
 	private String complemento;
 	private String bairro;
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String cep;
 	
-	//Telefones opcionais
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String telefone1;
+	//Telefones opcionais
 	private String telefone2;
 	private String telefone3;
 	
