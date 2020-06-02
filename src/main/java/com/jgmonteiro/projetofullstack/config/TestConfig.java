@@ -106,9 +106,9 @@ public class TestConfig implements CommandLineRunner {
 		cat6.getProdutos().addAll(Arrays.asList(p9,p10));
 		cat7.getProdutos().add(p11);
 		
-		p1.getCategorias().addAll(Arrays.asList(cat1));
-		p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
-		p3.getCategorias().addAll(Arrays.asList(cat1));
+		p1.getCategorias().addAll(Arrays.asList(cat1, cat4));
+		p2.getCategorias().addAll(Arrays.asList(cat1,cat2, cat4));
+		p3.getCategorias().addAll(Arrays.asList(cat1, cat4));
 		p4.getCategorias().add(cat2);
 		p5.getCategorias().add(cat3);
 		p6.getCategorias().add(cat3);
