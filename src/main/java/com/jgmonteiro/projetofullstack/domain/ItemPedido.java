@@ -40,9 +40,19 @@ public class ItemPedido implements Serializable {
 		return id.getPedido();
 	}
 	
+	public void setPedido(Pedido pedido) {
+		//Passando no meu id composto o pedido que chegou por argumento
+		id.setPedido(pedido);
+	}
+	
 	
 	public Produto getProduto() {
 		return id.getProduto();
+	}
+	
+	public void setProduto(Produto produto) {
+		//Passando no meu id composto o produto que chegou por argumento
+		id.setProduto(produto);
 	}
 
 	public ItemPedidoPK getId() {
