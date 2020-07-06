@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.jgmonteiro.projetofullstack.service.DBService;
+import com.jgmonteiro.projetofullstack.service.EmailService;
+import com.jgmonteiro.projetofullstack.service.MockEmailService;
 
 @Configuration
 @Profile("test")
@@ -28,6 +30,11 @@ public class TestConfig implements CommandLineRunner {
 	public boolean instantiateDatabase() throws ParseException {
 		dbService.instantiateTestDataBase();
 		return true;
+	}
+	
+	@Bean
+	public EmailService emailService() {
+		return new MockEmailService();
 	}
 
 }
