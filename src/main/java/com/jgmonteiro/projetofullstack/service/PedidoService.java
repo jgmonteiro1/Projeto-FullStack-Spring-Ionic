@@ -36,6 +36,9 @@ public class PedidoService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
+	@Autowired
+	private ClienteService clienteService;
+	
 	public List<Pedido> findAll(){
 		return repository.findAll();
 	}
@@ -52,6 +55,7 @@ public class PedidoService {
 		obj.setId(null);
 		//Cria uma nova data a partir do instante atual
 		obj.setInstante(new Date());
+		obj.setCliente(clienteService.findById(obj.getCliente().getId()));
 		//Definindo o estado do pagamento
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		//Associação para que o pagamento conheça o pedido dele
@@ -70,12 +74,15 @@ public class PedidoService {
 		//Percorrendo todos os itens de pedidos associados ao meu obj
 		for(ItemPedido x : obj.getItens()) {
 			x.setDesconto(0.0);
+			//Associando o item de pedido com o produto que está sendo buscado no banco de dados
+			x.setProduto(produtoService.findById(x.getProduto().getId()));
 			//Setando o preço do item de pedido como o mesmo preço do produto
-			x.setPreco(produtoService.findById(x.getProduto().getId()).getPreco());
+			x.setPreco(x.getProduto().getPreco());
 			//Associando esse item de pedido com o Pedido que estou inserindo
 			x.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());
+		System.out.println(obj);
 		return obj;
 	}
 	
