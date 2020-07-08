@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.jgmonteiro.projetofullstack.service.DBService;
+import com.jgmonteiro.projetofullstack.service.EmailService;
+import com.jgmonteiro.projetofullstack.service.SmtpEmailService;
 
 @Configuration
 @Profile("dev")
@@ -40,6 +42,12 @@ public class DevConfig implements CommandLineRunner {
 		}
 		dbService.instantiateTestDataBase();
 		return true;
+	}
+	
+	//Instancia um SmtpEmailService sempre que eu rodar meu programa no perfil dev 
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
 	}
 
 }
