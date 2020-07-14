@@ -20,6 +20,7 @@ import com.jgmonteiro.projetofullstack.domain.PagamentoComCartao;
 import com.jgmonteiro.projetofullstack.domain.Pedido;
 import com.jgmonteiro.projetofullstack.domain.Produto;
 import com.jgmonteiro.projetofullstack.domain.enums.EstadoPagamento;
+import com.jgmonteiro.projetofullstack.domain.enums.Perfil;
 import com.jgmonteiro.projetofullstack.domain.enums.TipoCliente;
 import com.jgmonteiro.projetofullstack.repository.CategoriaRepository;
 import com.jgmonteiro.projetofullstack.repository.CidadeRepository;
@@ -119,17 +120,23 @@ public class DBService {
 		Cliente cli1 = new Cliente(null, "Maria Silva", "emailtestesmonteiro@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, bCryptPaswordEncoder.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("40028922", "30221515"));
 
+		Cliente cli2 = new Cliente(null, "Ana Silva", "emailtestesmonteiro2@gmail.com", "12415482005", TipoCliente.PESSOAFISICA, bCryptPaswordEncoder.encode("123"));
+		cli2.addPerfil(Perfil.ADMIN);
+		cli2.getTelefones().addAll(Arrays.asList("30233231", "25218831"));
+		
 		Endereco e1 = new Endereco(null, "Rua Flores", "14", "Casa dos fundos", "Nordeste", "38220834", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
-
+		Endereco e3 = new Endereco(null, "Avenina Paulista", "322", "Ed Jeremias", "Paulista","12344233", cli2, c3);
+		
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
-
+		cli2.getEnderecos().add(e3);
+		
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
