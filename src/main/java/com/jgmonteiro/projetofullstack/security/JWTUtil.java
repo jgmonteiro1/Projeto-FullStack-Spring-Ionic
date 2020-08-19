@@ -12,10 +12,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JWTUtil {
 	
 	//Macete para importar valor da cheve no .properties
-	@Value("{jwt.secret}")
+	@Value("${jwt.secret}")
 	private String secret;
-	
-	@Value("{jwt.expiration}")
+
+	@Value("${jwt.expiration}")
 	private Long expiration;
 	
 	public String generateToken(String username) {
@@ -23,8 +23,6 @@ public class JWTUtil {
 				.setSubject(username)
 				.setExpiration(new Date(System.currentTimeMillis() + expiration))
 				.signWith(SignatureAlgorithm.HS512, secret.getBytes())
-				.compact();
-				
-				
+				.compact();	
 	}
 }
