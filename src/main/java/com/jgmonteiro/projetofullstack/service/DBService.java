@@ -116,7 +116,8 @@ public class DBService {
 		p9.getCategorias().add(cat6);
 		p10.getCategorias().add(cat6);
 		p11.getCategorias().add(cat7);
-
+		
+		//usuario com perfil de cliente
 		Cliente cli1 = new Cliente(null, "Maria Silva", "emailtestesmonteiro@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, bCryptPaswordEncoder.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("40028922", "30221515"));
 
