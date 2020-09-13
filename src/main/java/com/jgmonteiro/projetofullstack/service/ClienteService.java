@@ -16,11 +16,14 @@ import com.jgmonteiro.projetofullstack.domain.Categoria;
 import com.jgmonteiro.projetofullstack.domain.Cidade;
 import com.jgmonteiro.projetofullstack.domain.Cliente;
 import com.jgmonteiro.projetofullstack.domain.Endereco;
+import com.jgmonteiro.projetofullstack.domain.enums.Perfil;
 import com.jgmonteiro.projetofullstack.domain.enums.TipoCliente;
 import com.jgmonteiro.projetofullstack.dto.ClienteDTO;
 import com.jgmonteiro.projetofullstack.dto.ClienteNewDTO;
 import com.jgmonteiro.projetofullstack.repository.ClienteRepository;
 import com.jgmonteiro.projetofullstack.repository.EnderecoRepository;
+import com.jgmonteiro.projetofullstack.security.UserSpringSecurity;
+import com.jgmonteiro.projetofullstack.service.exceptions.AuthorizationException;
 import com.jgmonteiro.projetofullstack.service.exceptions.DataIntegrityViolationException;
 import com.jgmonteiro.projetofullstack.service.exceptions.ObjectNotFoundException;
 
@@ -42,6 +45,12 @@ public class ClienteService {
 	}
 
 	public Cliente findById(Integer id) {
+		
+		UserSpringSecurity user = UserService.authenticated();
+		if(user == null || !user.hasRole(Perfil.ADMIN) && id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Cliente> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
@@ -105,4 +114,6 @@ public class ClienteService {
 		newObj.setNome(obj.getNome());
 		newObj.setEmail(obj.getEmail());
 	}
+	
+	
 }
